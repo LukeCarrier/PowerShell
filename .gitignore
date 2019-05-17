@@ -50,6 +50,10 @@ dotnet-uninstall-debian-packages.sh
 *.nupkg
 *.AppImage
 
+# Flatpak build artifacts
+/.flatpak-builder/
+/flatpak-build/
+
 # default location for produced nuget packages
 /nuget-artifacts
 
