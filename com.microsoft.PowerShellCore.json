@@ -1,0 +1,44 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TingPing/flatpak-manifest-schema/master/flatpak-manifest.schema",
+  "app-id": "com.microsoft.PowerShellCore",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "18.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "x",
+  "modules": [
+    {
+      "name": "powershell",
+      "buildsystem": "simple",
+      "build-options": {
+        "append-path": "/run/build/powershell/dotnet",
+        "env": {
+          "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+          "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1"
+        },
+        ""
+      },
+      "build-commands": [
+        "./bootstrap/pwsh -Command '& {Import-Module ./src/build.psm1; Start-PSBootStrap; Start-PSBuild }'"
+      ],
+      "sources": [
+        {
+          "dest": "bootstrap",
+          "type": "archive",
+          "url": "https://github.com/PowerShell/PowerShell/releases/download/v6.2.0/powershell-6.2.0-linux-x64.tar.gz",
+          "sha256": "f2ea5bea2a4396902737ec93bb146db3c4d5bf96a94555ce60ee03fefe43fc20"
+        },
+        {
+          "dest": "dotnet",
+          "type": "archive",
+          "url": "https://download.visualstudio.microsoft.com/download/pr/b35cf035-09d9-444a-8f62-c972fd6f2be0/4068a391164715232bbf4477b349643f/dotnet-sdk-2.1.504-linux-x64.tar.gz",
+          "sha256": "40b23736709b13165063d8aab1eff5b4aac577b96a4f909b80add80c80db08c3"
+        },
+        {
+          "dest": "src",
+          "type": "dir",
+          "path": "."
+        }
+      ]
+    }
+  ]
+}
