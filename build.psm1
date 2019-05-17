@@ -143,6 +143,7 @@ function Get-EnvironmentInformation
         $environment += @{'IsRedHatFamily' = $Environment.IsCentOS -or $Environment.IsFedora -or $Environment.IsRedHat}
         $environment += @{'IsSUSEFamily' = $Environment.IsSLES -or $Environment.IsOpenSUSE}
         $environment += @{'IsAlpine' = $LinuxInfo.ID -match 'alpine'}
+        $environment += @{'IsFreedesktopPlatform' = $LinuxInfo.ID -match 'org.freedesktop.Platform'}
 
         # Workaround for temporary LD_LIBRARY_PATH hack for Fedora 24
         # https://github.com/PowerShell/PowerShell/issues/2511
@@ -156,7 +157,8 @@ function Get-EnvironmentInformation
             $environment.IsUbuntu -or
             $environment.IsRedHatFamily -or
             $environment.IsSUSEFamily -or
-            $environment.IsAlpine)
+            $environment.IsAlpine -or
+            $environment.IsFreedesktopPlatform)
         ) {
             throw "The current OS : $($LinuxInfo.ID) is not supported for building PowerShell."
         }
